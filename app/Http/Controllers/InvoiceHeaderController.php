@@ -579,8 +579,90 @@ class InvoiceHeaderController extends Controller
     public function store(InvoiceHeaderRequest $request)
     {
         $invoiceHeader = InvoiceHeader::create($request->all());
-        
+        //dd($invoiceHeader);
         $load = Load::where('id', '=', $invoiceHeader->id_load)->first();
+
+        /* Create items of master Invoice */
+        // array of Pallets
+        //$code = 1;
+        $resumenCarga = PalletItem::where('id_load', '=', $load->id)
+            ->join('clients', 'pallet_items.id_client', '=', 'clients.id')
+            ->select('clients.id', 'clients.name')
+            ->orderBy('clients.name', 'ASC')
+            ->get();
+        // Eliminamos los clientes duplicados
+        $clients = collect(array_unique($resumenCarga->toArray(), SORT_REGULAR));
+        // Items de carga
+        $itemsCargaAll = PalletItem::select('*')
+            ->where('id_load', '=', $load->id)
+            ->join('farms', 'pallet_items.id_farm', '=', 'farms.id')
+            ->select('farms.name', 'pallet_items.*')
+            ->orderBy('farms.name', 'ASC')
+            ->get();
+        
+        $itemsFarms = PalletItem::groupEqualsItemsCargas($itemsCargaAll, $load->id);
+        //dd($itemsFarms);
+        foreach($clients as $client)
+        {
+            foreach($itemsFarms as $item)
+            {
+                if($client['id'] == $item['id_client'])
+                {
+                    $coordHawb = Coordination::where('id_load', $load->id)
+                        ->where('id_client', $item['id_client'])
+                        ->where('id_farm', $item['id_farm'])
+                        ->first();
+                    if(isset($coordHawb))
+                    {
+                        $coordHawb->hawb = $coordHawb->hawb;
+                    }else{
+                        $coordHawb->hawb = '-';
+                    }
+                    // calculo de Fulles
+                    $fulls = ($item['hb'] * 0.5) + ($item['qb'] * 0.25) + ($item['eb'] * 0.125);
+                    
+                    $masterInvoiceHeader = MasterInvoiceItem::create([
+                        'id_invoiceh'       => $invoiceHeader->id,
+                        'id_client'         => $client['id'],
+                        'id_farm'           => $item['id_farm'],
+                        'id_load'           => $invoiceHeader->id_load,
+                        'variety_id'        => $coordHawb->variety_id,
+                        'hawb'              => $coordHawb->hawb, //Aqui me quede
+                        'pieces'            => $item['quantity'],
+                        'hb'                => $item['hb'],
+                        'qb'                => $item['qb'],
+                        'eb'                => $item['eb'],
+                        'stems'             => 25,
+                        'price'             => 0.01,
+                        'bunches'           => 1,
+                        'fulls'             => $fulls,    
+                        'total'             => (10 * 0.01),
+                        'id_user'           => $invoiceHeader->id_user,
+                        'update_user'       => $invoiceHeader->update_user,
+                        'stems_p_bunches'   => 25,
+                        'fa_cl_de'          => $item['id_farm'] . '-' . $item['id_client'] . '-' . $coordHawb->variety_id,
+                        'client_confim_id'  => $item['id_client']
+                    ]);
+                    
+                }
+            }
+        }
+        // Actualizamos los totales en la table Invoice Header
+        $fulls = MasterInvoiceItem::select('fulls')->where('id_load', '=', $masterInvoiceHeader->id_load)->sum('fulls');
+        $bunches = MasterInvoiceItem::select('bunches')->where('id_load', '=', $masterInvoiceHeader->id_load)->sum('bunches');
+        $pieces = MasterInvoiceItem::select('pieces')->where('id_load', '=', $masterInvoiceHeader->id_load)->sum('pieces');
+        $stems = MasterInvoiceItem::select('stems')->where('id_load', '=', $masterInvoiceHeader->id_load)->sum('stems');
+        $total_t = MasterInvoiceItem::select('total')->where('id_load', '=', $masterInvoiceHeader->id_load)->sum('total');
+        $invoiceHeader = InvoiceHeader::find($masterInvoiceHeader->id_invoiceh);
+        $invoiceHeader->update([
+            'total_fulls'   => $fulls,
+            'total_bunches' => $bunches,
+            'total_pieces'  => $pieces,
+            'total_stems'   => $stems,
+            'total'         => $total_t
+        ]);
+
+        //dd($itemsCarga);
 
         return redirect()->route('masterinvoices.index', $load->id)
             ->with('status_success', 'Factura creada con éxito');
