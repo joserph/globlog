@@ -9,6 +9,7 @@
           <th scope="col">Dirección</th>
           <th scope="col">Estado</th>
           <th scope="col">Ciudad</th>
+          <th scope="col">Zip Code</th>
           <th scope="col">País</th>
           <th class="text-center" colspan="2">@can('haveaccess', 'company.edit') Editar @endcan  @can('haveaccess', 'company.destroy')/ Eliminar @endcan</th>
        </tr>
@@ -21,6 +22,7 @@
             <td>{{ $company->address }}</td>
             <td>{{ $company->state }}</td>
             <td>{{ $company->city }}</td>
+            <td>{{ $company->zip_code }}</td>
             <td>{{ $company->country }}</td>
             <td colspan="2" class="text-center">
                @can('haveaccess', 'company.edit')

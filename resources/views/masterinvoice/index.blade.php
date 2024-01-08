@@ -130,19 +130,21 @@
             <i class="fas fa-plus-circle"></i> Crear Item
          </button>
          @endcan
-
-         <a href="{{ route('comercial-invoice.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-success pull-right"><i class="far fa-file-pdf"></i> Master Invoice</a>
-         {{-- <a href="{{ route('comercial-invoice.excel', $load) }}" target="_blank" class="btn btn-xs btn-outline-success pull-right"><i class="fas fa-file-excel"></i></a> --}}
-         <a href="{{ route('shiptment-confirmation.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-default pull-right"><i class="far fa-file-pdf"></i> Shipment Confirmation</a>
-         <a href="{{ route('shiptment-confirmation-internal-use.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-info pull-right"><i class="far fa-file-pdf"></i> Confirmacion de Despacho</a>
-         <a href="{{ route('shiptment-confirmation-internal-use.excel', $load) }}" target="_blank" class="btn btn-xs btn-outline-success pull-right"><i class="fas fa-file-excel"></i> Confirmación de Despacho Excel</a>
-         <a href="{{ route('farms-invoice.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-warning pull-right"><i class="far fa-file-pdf"></i> Comercial Invoice</a>
-         <!-- Button for modal editFormHeader -->
          @can('haveaccess', 'masterinvoice.edit')
          <button type="button" class="btn btn-outline-warning float-right" data-toggle="modal" data-target="#editInvoiceHeader" >
             <i class="fas fa-edit"></i> Editar
          </button>
          @endcan
+         <hr>
+         <a href="{{ route('comercial-invoice.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-dark pull-right"><i class="far fa-file-pdf"></i> Master Invoice</a>
+         {{-- <a href="{{ route('comercial-invoice.excel', $load) }}" target="_blank" class="btn btn-xs btn-outline-success pull-right"><i class="fas fa-file-excel"></i></a> --}}
+         <a href="{{ route('shiptment-confirmation.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-dark pull-right"><i class="far fa-file-pdf"></i> Shipment Confirmation</a>
+         <a href="{{ route('shiptment-confirmation-internal-use.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-dark pull-right"><i class="far fa-file-pdf"></i> Confirmacion de Despacho</a>
+         <a href="{{ route('shiptment-confirmation-internal-use.excel', $load) }}" target="_blank" class="btn btn-xs btn-outline-success pull-right"><i class="fas fa-download"></i> Confirmación de Despacho</a>
+         <a href="{{ route('comercial-invoice.excel', $load) }}" target="_blank" class="btn btn-xs btn-outline-success pull-right"><i class="fas fa-download"></i> Master Invoice</a>
+         <a href="{{ route('farms-invoice.pdf', $load) }}" target="_blank" class="btn btn-xs btn-outline-dark pull-right"><i class="far fa-file-pdf"></i> Comercial Invoice</a>
+         <!-- Button for modal editFormHeader -->
+         
          <hr>
          {{--
          @if (!$invoiceItems)

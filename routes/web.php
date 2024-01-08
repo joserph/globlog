@@ -39,6 +39,10 @@ Route::get('client-excel', 'HomeController@clientExcel')->name('client.excel');
 Route::get('/companies', function () {
     return view('company.companies');
 })->name('companies');
+//Items para Invoice
+Route::get('/itemsforinvoices', function () {
+    return view('itemforinvoice.itemsforinvoices');
+})->name('itemsforinvoices');
 
 // Empresa de Logistica
 Route::get('/logistics', function () {
@@ -121,7 +125,7 @@ Route::get('/invoiceheader/{id}', function($id){
 });
 // Factura Master
 Route::get('comercial-invoice-pdf', 'InvoiceHeaderController@masterInvoicePdf')->name('comercial-invoice.pdf');
-Route::get('comercial-invoice-excel', 'InvoiceHeaderController@masterInvoiceExcel')->name('comercial-invoice.excel');
+Route::get('comercial-invoice-excel/{id}', 'InvoiceHeaderController@masterInvoiceExcel')->name('comercial-invoice.excel');
 Route::get('shiptment-confirmation-internal-use-excel', 'InvoiceHeaderController@shiptmentConfirmationUseInternalExcel')->name('shiptment-confirmation-internal-use.excel');
 // Shiptment Confirmation
 Route::get('shiptment-confirmation-pdf', 'InvoiceHeaderController@shiptmentConfirmation')->name('shiptment-confirmation.pdf');
@@ -199,3 +203,9 @@ Route::get('closing-excel/{id}', 'PalletItemController@palletExcel')->name('clos
 Route::post('coordination-load-import/{id}', 'CoordinationController@importExcel')->name('coordination-load.import');
 // Eliminar varias coordinaciones
 Route::delete('selected-coord', 'CoordinationController@deleteAll')->name('coordination.delete');
+// Items para Invoice
+Route::resource('/itemsininvoices', 'ItemInInvoiceController')->names('itemsininvoices');
+// Invoice internal
+Route::resource('/invoices', 'InvoiceController')->names('invoices');
+// PDF Invoice
+Route::get('invoice-pdf/{id}', 'InvoiceController@invoicePdf')->name('invoice.pdf');

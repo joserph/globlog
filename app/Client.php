@@ -28,6 +28,7 @@ class Client extends Model
         'type_load',
         'delivery',
         'method_payment',
+        'zip_code'
     ];
 
     public function masterinvoiceitems()

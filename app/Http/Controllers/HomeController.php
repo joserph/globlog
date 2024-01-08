@@ -17,6 +17,8 @@ use App\VarietyFlower;
 use App\QACompany;
 use App\Dae;
 use App\Airline;
+use App\Invoice;
+use App\ItemForInvoice;
 
 class HomeController extends Controller
 {
@@ -53,6 +55,8 @@ class HomeController extends Controller
         $qacampanies = QACompany::count();
         $daes = Dae::count();
         $airlines = Airline::count();
+        $invoices = Invoice::count();
+        $itemsforinvoices = ItemForInvoice::count();
         //dd($companyName[0]->name);
         return view('home', compact(
             'farms', 
@@ -70,7 +74,9 @@ class HomeController extends Controller
             'packings',
             'qacampanies',
             'daes',
-            'airlines'));
+            'airlines',
+            'invoices',
+            'itemsforinvoices'));
     }
 
     public function clientExcel()

@@ -161,40 +161,28 @@ class InvoiceHeaderController extends Controller
         return $masterInvoicePdf->stream();
     }
     
-    public function masterInvoiceExcel()
+    public function masterInvoiceExcel($id)
     {
-
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Hello World !');
-
-        $writer = new Xlsx($spreadsheet);
-        //$writer->save('hello world.xlsx');
-
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="myfile.xlsx"');
-        header('Cache-Control: max-age=0');
-
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
-        $writer->save('php://output');
-        // Busco el ID de la carga por medio de la URL
-        /*$url = $_SERVER["REQUEST_URI"];
-        $arr = explode("?", $url);
-        $code = $arr[1];
+        // Empresas de Logistica "Activa"
+        $lc_active = LogisticCompany::where('active', '=', 'yes')->first();
+        // Mi empresa
+        $company = Company::first();
+        // Cabecera de la factura
+        $invoiceheaders = InvoiceHeader::orderBy('id', 'DESC')->where('id_load', '=', $id)->first();
+        $invoiceItemsAll = MasterInvoiceItem::select('*')
+            ->where('id_load', '=', $id)
+            ->with('variety')
+            ->with('invoiceh')
+            ->with('client')
+            ->with('client_confirm')
+            ->join('farms', 'master_invoice_items.id_farm', '=', 'farms.id')
+            ->orderBy('farms.name', 'ASC')
+            ->get();
         
-        return Excel::download(new ExportsMasterInvoice($code), 'master-invoice-' . $code .'.xlsx');*/
-
-        //dd('hola');
-        /*Excel::create('company', function($excel)
-        {
-            $excel->sheet('company', function($sheet)
-            {
-                $sheet->loadView('ExportCompany');
-            });
-        })->export('xlsx');*/
-        
-        
-            
+        //dd($invoiceItemsAll);
+        $invoiceItems = InvoiceHeader::groupEqualsMasterInvoice($invoiceItemsAll, $id);
+        //dd($invoiceItems);
+        InvoiceHeader::excel_master($invoiceheaders, $lc_active, $company, $invoiceItems);
         
     }
 
@@ -616,7 +604,7 @@ class InvoiceHeaderController extends Controller
                     {
                         $coordHawb->hawb = $coordHawb->hawb;
                     }else{
-                        $coordHawb->hawb = '-';
+                        $coordHawb->hawb = 0;
                     }
                     // calculo de Fulles
                     $fulls = ($item['hb'] * 0.5) + ($item['qb'] * 0.25) + ($item['eb'] * 0.125);

@@ -8,7 +8,7 @@ use Auth;
 
 class CompanyComponent extends Component
 {
-    public $company_id, $name, $phone, $address, $state, $city, $country;
+    public $company_id, $name, $phone, $address, $state, $city, $country, $zip_code;
     public $view = 'create';
 
     public function render()
@@ -29,6 +29,7 @@ class CompanyComponent extends Component
             'state'     => 'required',
             'city'      => 'required',
             'country'   => 'required',
+            'zip_code'  => 'required'
         ]);
 
         $company = Company::create([
@@ -39,7 +40,8 @@ class CompanyComponent extends Component
             'city'          => $this->city,
             'country'       => $this->country,
             'id_user'       => Auth::user()->id,
-            'update_user'   => Auth::user()->id
+            'update_user'   => Auth::user()->id,
+            'zip_code'      => $this->zip_code
         ]);
 
         $this->edit($company->id);
@@ -58,6 +60,7 @@ class CompanyComponent extends Component
         $this->state = $company->state;
         $this->city = $company->city;
         $this->country = $company->country;
+        $this->zip_code = $company->zip_code;
 
         $this->view = 'edit';
     }
@@ -72,6 +75,7 @@ class CompanyComponent extends Component
             'state'     => 'required',
             'city'      => 'required',
             'country'   => 'required',
+            'zip_code'  => 'required'
         ]);
 
         $company = Company::find($this->company_id);
@@ -84,7 +88,8 @@ class CompanyComponent extends Component
             'city'          => $this->city,
             'country'       => $this->country,
             'id_user'       => $company->id_user,
-            'update_user'   => Auth::user()->id
+            'update_user'   => Auth::user()->id,
+            'zip_code'      => $this->zip_code
         ]);
 
         session()->flash('edit', 'La empresa "' . $company->name . '" se actualizó con éxito');
@@ -101,6 +106,7 @@ class CompanyComponent extends Component
         $this->state = '';
         $this->city = '';
         $this->country = '';
+        $this->zip_code = '';
 
         $this->view = 'create';
     }

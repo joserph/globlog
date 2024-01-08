@@ -16,7 +16,7 @@ class ClientComponent extends Component
 
     protected $paginationTheme = 'bootstrap'; /// Importante
 
-    public $client_id, $name, $phone, $address, $state, $city, $country, $poa, $email, $owner, $sub_owner, $sub_owner_phone, $related_names, $buyer, $type_load, $delivery, $method_payment;
+    public $client_id, $name, $phone, $address, $state, $city, $zip_code, $country, $poa, $email, $owner, $sub_owner, $sub_owner_phone, $related_names, $buyer, $type_load, $delivery, $method_payment;
     public $view = 'create';
     public $term;
     
@@ -53,6 +53,7 @@ class ClientComponent extends Component
             'address'           => 'required',
             'state'             => 'required',
             'city'              => 'required',
+            'zip_code'          => 'required',
             'country'           => 'required',
             'poa'               => 'required',
             'email'             => 'email',
@@ -69,6 +70,7 @@ class ClientComponent extends Component
             'address'           => $this->address,
             'state'             => $this->state,
             'city'              => $this->city,
+            'zip_code'          => $this->zip_code,
             'country'           => $this->country,
             'poa'               => $this->poa,
             'email'             => $this->email,
@@ -100,6 +102,7 @@ class ClientComponent extends Component
         $this->address          = $client->address;
         $this->state            = $client->state;
         $this->city             = $client->city;
+        $this->zip_code         = $client->zip_code;
         $this->country          = $client->country;
         $this->poa              = $client->poa;
         $this->email            = $client->email;
@@ -124,6 +127,7 @@ class ClientComponent extends Component
             'address'           => 'required',
             'state'             => 'required',
             'city'              => 'required',
+            'zip_code'          => 'required',
             'country'           => 'required',
             'poa'               => 'required',
             'email'             => 'email',
@@ -142,6 +146,7 @@ class ClientComponent extends Component
             'address'           => $this->address,
             'state'             => $this->state,
             'city'              => $this->city,
+            'zip_code'          => $this->zip_code,
             'country'           => $this->country,
             'poa'               => $this->poa,
             'email'             => $this->email,
@@ -169,6 +174,7 @@ class ClientComponent extends Component
         $this->address = '';
         $this->state = '';
         $this->city = '';
+        $this->zip_code = '';
         $this->country = '';
         $this->poa = '';
         $this->email = '';

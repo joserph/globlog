@@ -242,6 +242,38 @@
          </div>
       </div>
       @endcan
+      @can('haveaccess', 'itemsforinvoices.index')
+      <div class="col-lg-3 col-6">
+         <div class="small-box bg-primary">
+            <div class="inner">
+               <h3>{{ $itemsforinvoices }}</h3>
+               <p>Items para Facturas</p>
+            </div>
+            <div class="icon">
+               <i class="fas fa-receipt"></i>
+            </div>
+            
+               <a href="{{ url('itemsforinvoices') }}" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            
+         </div>
+      </div>
+      @endcan
+      @can('haveaccess', 'invoices.index')
+      <div class="col-lg-3 col-6">
+         <div class="small-box bg-info">
+            <div class="inner">
+               <h3>{{ $invoices }}</h3>
+               <p>Facturas</p>
+            </div>
+            <div class="icon">
+               <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            
+               <a href="{{ route('invoices.index') }}" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            
+         </div>
+      </div>
+      @endcan
       {{-- @can('haveaccess', 'distribution-client.index')
       <div class="col-lg-3 col-6">
          <div class="small-box bg-primary">
