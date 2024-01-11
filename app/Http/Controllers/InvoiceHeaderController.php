@@ -717,7 +717,7 @@ class InvoiceHeaderController extends Controller
             $load = Load::where('id', '=', $invoiceHeader->id_load)->first();
 
             return redirect()->route('masterinvoices.index', $load->id)
-                ->with('status_success', 'Factura editada con éxito');
+                ->with('status_success', 'Cabecera de Factura editada con éxito');
         }
     }
 
@@ -729,6 +729,11 @@ class InvoiceHeaderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $invoiceHeader = InvoiceHeader::find($id);
+        $load = Load::where('id', '=', $invoiceHeader->id_load)->first();
+        $invoiceHeader->delete();
+
+        return redirect()->route('masterinvoices.index', $load->id)
+                ->with('status_success', 'Cabecera de Factura eliminada con éxito');
     }
 }

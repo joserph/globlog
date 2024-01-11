@@ -19,6 +19,7 @@ class Invoice extends Model
         'total_pieces',
         'total_quantity',
         'total_amount',
+        'observation',
         'id_user',
         'update_user',
     ];

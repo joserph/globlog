@@ -25,6 +25,7 @@ class CreateInvoicesTable extends Migration
             $table->string('terms');
             $table->string('type');
             $table->string('load_type');
+            $table->text('observation')->nullable();
             // totales
             $table->string('total_pieces')->nullable();
             $table->string('total_quantity')->nullable();

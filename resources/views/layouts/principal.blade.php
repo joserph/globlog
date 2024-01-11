@@ -5,7 +5,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <!-- CSRF Token -->
    <meta name="csrf-token" content="{{ csrf_token() }}">
-   <title>@yield('title', 'Sistema de Carguera v1.1')</title>
+   <title>@yield('title', 'Carga Hub v1.1')</title>
    
    <!-- Tell the browser to be responsive to screen width -->
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,7 @@
 </head>
 
 
-<body class="hold-transition dark-mode sidebar-mini layout-navbar-fixed sidebar-collapse">
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
    <!-- Site wrapper -->
    <div class="wrapper">
       <!-- Navbar -->
@@ -71,11 +71,11 @@
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
                <a href="{{ route('home') }}" class="brand-link elevation-4">
-                  <img src="{{ asset('img/casa.png') }}"
-                  alt="AdminLTE Logo"
+                  <img src="{{ asset('img/Logo_Carga_Hub_500.png') }}"
+                  alt="Logo Carga Hub"
                   class="brand-image img-circle elevation-3"
                   style="opacity: .8">
-                  <span class="brand-text font-weight-light">Sistema Carguera</span>
+                  <span class="brand-text font-weight-light">Carga Hub</span>
                </a>
                <!-- Sidebar -->
                <div class="sidebar">
@@ -249,6 +249,22 @@
                                  </a>
                               </li>
                            @endcan
+                           @can('haveaccess', 'itemforinvoice.index')
+                              <li class="nav-item">
+                                 <a href="{{ url('itemsforinvoices') }}" class="nav-link">
+                                    <i class="fas fa-receipt"></i>
+                                    <p>Items para Facturas</p>
+                                 </a>
+                              </li>
+                           @endcan
+                           @can('haveaccess', 'invoices.index')
+                              <li class="nav-item">
+                                 <a href="{{ route('invoices.index') }}" class="nav-link">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    <p>Facturas</p>
+                                 </a>
+                              </li>
+                           @endcan
                            {{-- @can('haveaccess', 'distribution-client.index')
                               <li class="nav-item">
                                  <a href="{{ route('distribution-client.index') }}" class="nav-link">
@@ -278,7 +294,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 1.1
     </div>
-    <strong>Copyright &copy; 2023 <a target="_blank" href="https://freshflowercargo.com/">Fresh Flower Cargo</a>.</strong>
+    <strong>Copyright &copy; 2023 <a target="_blank" href="#">Carga Hub</a>.</strong>
   </footer>
 
   <!-- Control Sidebar -->

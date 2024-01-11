@@ -211,8 +211,11 @@
                         <button type="submit" class="btn btn-outline-primary" id="createMasterInvoice" data-toggle="tooltip" data-placement="top" title="Crear Empresa">
                            <i class="fas fa-plus-circle"></i> Crear
                      </button>
+                     
                      </div>
+                     
                   </form>
+                  
                </div>
             </div>
             </div>

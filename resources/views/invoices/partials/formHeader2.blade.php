@@ -30,6 +30,10 @@
         {{ Form::label('terms', 'Terminos') }}
         {{ Form::select('terms', ['cod' => 'COD'], null, ['placeholder' => 'Seleccione Terminos', 'class' => 'form-control', 'required']) }}
      </div>
+     <div class="form-group col-md-6">
+        {{ Form::label('observation', 'Terminos') }}
+        {{ Form::textarea('observation', null, ['placeholder' => 'Colocar Observaciones', 'class' => 'form-control', 'rows' => '3']) }}
+     </div>
     {{ Form::hidden('id_user', Auth::user()->id) }}
     {{ Form::hidden('update_user', Auth::user()->id) }}
  </div>

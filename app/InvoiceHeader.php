@@ -363,7 +363,7 @@ class InvoiceHeader extends Model
         //$writer->save('hello world.xlsx');
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="myfile.xlsx"');
+        header('Content-Disposition: attachment;filename="Master_Invoice_' . $invoiceheaders->bl . '.xlsx"');
         header('Cache-Control: max-age=0');
 
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');

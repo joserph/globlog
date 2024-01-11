@@ -13,7 +13,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
               <li class="breadcrumb-item active"><a href="{{ route('user.index') }}">Usuarios</a></li>
               <li class="breadcrumb-item active">User Profile</li>
             </ol>
@@ -48,18 +48,22 @@
                       </div>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-sm btn-warning"><i class="fas fa-upload"></i> Actualizar Foto</button>
+                  <button type="submit" class="btn btn-sm btn-warning"><i class="fas fa-upload"></i> Subir Foto</button>
                 </form>
                 </div>
                 
                 <hr>
 
-                <h3 class="profile-username text-center">{{ Auth::user()->name }}</h3>
+                <h3 class="profile-username text-center">{{ Str::title(Auth::user()->name) }}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center">
+                  @isset($user->roles[0]->name)
+                    Role: {{ $user->roles[0]->name }}
+                  @endisset
+                </p>
 
                 <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
+                  <li class="list-group-item text-center">
                     <b>{{ Auth::user()->email }}</b>
                   </li>
                   
@@ -69,7 +73,7 @@
             <!-- /.card -->
 
             <!-- About Me Box -->
-            <div class="card card-primary">
+            {{-- <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">About Me</h3>
               </div>
@@ -106,7 +110,7 @@
                 <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
               </div>
               <!-- /.card-body -->
-            </div>
+            </div> --}}
             <!-- /.card -->
           </div>
           <!-- /.col -->
@@ -114,7 +118,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Configuracion</a></li>
                   <li class="nav-item"><a class="nav-link" href="#password" data-toggle="tab">Cambio de contraseña</a></li>
                 </ul>
               </div><!-- /.card-header -->

@@ -91,8 +91,14 @@ class InvoiceController extends Controller
         }
         $descriptions = ItemForInvoice::pluck('name', 'id');
         $items = ItemInInvoice::where('invoice_id', $id)->with('description')->orderBy('id', 'DESC')->get();
+        $clients = Client::orderBy('name', 'ASC')->pluck('name', 'id');
+        $loads = Load::orderBy('bl', 'ASC')->pluck('bl', 'id');
+        $flights = Flight::orderBy('awb', 'ASC')->pluck('awb', 'id');
         // dd($items);
-        return view('invoices.show', compact('invoice', 'my_company', 'client', 'type_load', 'load', 'descriptions', 'items'));
+        return view('invoices.show', compact(
+            'invoice', 'my_company', 'client', 
+            'type_load', 'load', 'descriptions', 
+            'items', 'clients', 'loads', 'flights'));
     }
 
     /**
@@ -123,7 +129,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::find($id);
         $invoice->update($request->all());
 
-        return redirect()->route('invoices.index')
+        return redirect()->route('invoices.show', $invoice->id)
             ->with('status_success', 'Cabecera de factura editada con éxito');
     }
 

@@ -31,7 +31,7 @@
             <div class="col-12">
                <h4>
                   <i class="fas fa-globe"></i> Factura
-                  <small class="float-right">Fecha: {{ date('d-m-Y', strtotime($invoice->date)) }}</small>
+                  <small class="float-right">Fecha: {{ date('m-d-Y', strtotime($invoice->date)) }}</small>
                </h4>
             </div>
          </div>
@@ -63,7 +63,8 @@
                <br>
                <b>{{ $type_load }}:</b> {{ $load }}<br>
                <b>Type:</b> {{ Str::of($invoice->type)->upper() }}<br>
-               <b>Terms:</b> {{ Str::of($invoice->terms)->upper() }}
+               <b>Terms:</b> {{ Str::of($invoice->terms)->upper() }}<br>
+               <b>Obervations:</b> {{ $invoice->observation }}
             </div>
          </div>
          
@@ -71,9 +72,13 @@
             <div class="row">
                 <!-- Button trigger modal -->
                 <div class="container">
-                    <button type="button" onclick="mifuncion()" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#createInvoice" >
+                     <button type="button" onclick="mifuncion()" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#createInvoice" >
                         <i class="fas fa-plus-circle"></i> Crear Item
-                    </button>
+                     </button>
+                     <a href="{{ url('itemsforinvoices') }}" class="btn btn-outline-info float-right btn-sm"><i class="fas fa-share"></i> Ir a Items para Facturas</a>
+                     <button type="button" class="btn btn-outline-warning btn-sm float-right" data-toggle="modal" data-target="#editInvoiceHeader" >
+                        <i class="fas fa-edit"></i> Editar Cabecera
+                     </button>
                 </div>
                 <hr>
                     <div class="col-12 table-responsive">
@@ -256,11 +261,33 @@
    </div>
 </div>
 
+<!-- Modal Edit header invoice -->
+<div class="modal fade" id="editInvoiceHeader" tabindex="-1" aria-labelledby="editInvoiceHeaderLabel" aria-hidden="true">
+   <div class="modal-dialog modal-xl">
+   <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="editInvoiceHeaderLabel">Editar Cabecera de Factura</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+      <div class="modal-body">
+         {{ Form::model($invoice, ['route' => ['invoices.update', $invoice->id], 'class' => 'form-horizontal', 'method' => 'PUT']) }}
+            <div class="modal-body">
+               @include('invoices.partials.formHeader2')
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+               <button class="btn btn-outline-warning" id="createCompany" data-toggle="tooltip" data-placement="top" title="Crear Item">
+                  <i class="fas fa-sync"></i> Actualizar
+               </button>
+            </div>
+         {{ Form::close() }}
+      </div>
+   </div>
+   </div>
+</div>
 
-
-
-@endsection
-@section('scripts')
 <script>
 
 function mifuncion() {
@@ -269,10 +296,9 @@ function mifuncion() {
        //alert(id_pallet);
        $(".grupo").keyup(function()
        {
-           var pieces = $('#pieces').val();
            var quantity = $('#quantity').val();
            var rate = $('#rate').val();
-           var amount = (parseFloat(quantity).toFixed(3) * parseFloat(rate).toFixed(3)) * parseFloat(pieces).toFixed(2);
+           var amount = (parseFloat(quantity).toFixed(3) * parseFloat(rate).toFixed(3));
            $('#amount').val(parseFloat(amount).toFixed(3));
            //console.log(amount);
        });
@@ -289,7 +315,7 @@ function mifuncion2(elemento) {
             var pieces = $('#pieces_'+id_item).val();
             var quantity = $('#quantity_'+id_item).val();
             var rate = $('#rate_'+id_item).val();
-            var amount = (parseFloat(quantity).toFixed(3) * parseFloat(rate).toFixed(3)) * parseFloat(pieces).toFixed(2);
+            var amount = (parseFloat(quantity).toFixed(3) * parseFloat(rate).toFixed(3));
             $('#amount_'+id_item).val(parseFloat(amount).toFixed(3));
         });
         
@@ -299,4 +325,7 @@ function mifuncion2(elemento) {
 }
 
 </script>
+
+
+
 @endsection

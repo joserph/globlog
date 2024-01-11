@@ -155,10 +155,10 @@
 						<table>
 							<tr>
 								<td class="title2">
-									{{-- <img
+									<img
 										src="https://sparksuite.github.io/simple-html-invoice-template/images/logo.png"
 										style="width: 100%; max-width: 300px"
-									/> --}}
+									/> <br>
                                     {{ $my_company->name }}<br /><br />
 									{{ $my_company->address }}<br />
 									{{ $my_company->state }}<br />
@@ -167,7 +167,7 @@
 
 								<td>
 									Invoice #: <strong>{{ $invoice->num_invoice }}</strong><br />
-									Date: {{ date('d-M-Y', strtotime($invoice->date)) }}<br />
+									Date: {{ date('m-d-Y', strtotime($invoice->date)) }}<br />
                                     @if ($invoice->load_id)
                                         BL: {{ $load }}<br />
                                     @else
@@ -186,8 +186,9 @@
 					<td colspan="6">
 						<table>
 							<tr>
-								<td>
-									
+								<td style="border: #333">
+									<strong>Observation:</strong>
+									<p>{{ $invoice->observation }}</p>
 								</td>
 
 								<td>
