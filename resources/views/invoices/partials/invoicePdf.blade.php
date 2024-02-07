@@ -60,8 +60,8 @@
 			}
 
             .invoice-box table tr.top table td.title2 {
-				font-size: 16px;
-				line-height: 16px;
+				font-size: 14px;
+				line-height: 14px;
 				color: #333;
 			}
 
@@ -156,8 +156,8 @@
 							<tr>
 								<td class="title2">
 									<img
-										src="https://sparksuite.github.io/simple-html-invoice-template/images/logo.png"
-										style="width: 100%; max-width: 300px"
+										src="{{ public_path('img/Logo_Telcar_500.png') }}"
+										style="width: 100%; max-width: 150px"
 									/> <br>
                                     {{ $my_company->name }}<br /><br />
 									{{ $my_company->address }}<br />
@@ -186,18 +186,17 @@
 					<td colspan="6">
 						<table>
 							<tr>
-								<td style="border: #333">
-									<strong>Observation:</strong>
-									<p>{{ $invoice->observation }}</p>
-								</td>
-
 								<td>
                                     <strong>Bill To:</strong> <br />
 									{{ $client->name }}<br />
 									{{ $client->address }}<br />
-									{{ $client->state }} <br />
 									{{ $client->city }} {{ $client->zip_code }}<br />
+									{{ $client->state }} <br />
 									{{ $client->email }}
+								</td>
+								<td style="border: #333">
+									<strong>Observation:</strong>
+									<p>{{ $invoice->observation }}</p>
 								</td>
 							</tr>
 						</table>
@@ -256,7 +255,7 @@
 					<td></td>
                     <td>Grand Total:</td>
                     <td><strong>{{ number_format($total_pieces, 2, '.','') }}</strong></td>
-                    <td><strong>{{ number_format($total_quantity, 2, '.','') }}</strong></td>
+                    <td></td>
                     <td></td>
                     <td><strong>${{ number_format($total_amount, 2, '.','') }}</strong></td>
 				</tr>

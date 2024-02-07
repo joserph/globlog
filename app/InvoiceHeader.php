@@ -99,7 +99,7 @@ class InvoiceHeader extends Model
         return collect(array_unique($invoiceItemsArray, SORT_REGULAR));
     }
 
-    public static function excel_master($invoiceheaders, $lc_active, $company, $invoiceItems)
+    public static function excel_master($invoiceheaders, $lc_active, $company, $invoiceItems, $load)
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -176,13 +176,13 @@ class InvoiceHeader extends Model
         // contenido cabecera 1
         $sheet->getStyle('A5:H8')->getFont()->setSize(14);
         $sheet->mergeCells('A5:H5');
-        $sheet->setCellValue('A5', $lc_active->name . 'RUC: ' . $lc_active->ruc);
+        $sheet->setCellValue('A5', $load->logistic_company->name . ' RUC: ' . $load->logistic_company->ruc);
         $sheet->mergeCells('A6:H6');
-        $sheet->setCellValue('A6', $lc_active->address);
+        $sheet->setCellValue('A6', $load->logistic_company->address);
         $sheet->mergeCells('A7:H7');
-        $sheet->setCellValue('A7', 'TLF: ' . $lc_active->phone);
+        $sheet->setCellValue('A7', 'TLF: ' . $load->logistic_company->phone);
         $sheet->mergeCells('A8:H8');
-        $sheet->setCellValue('A8', $lc_active->city . ' - ' . $lc_active->country);
+        $sheet->setCellValue('A8', $load->logistic_company->city . ' - ' . $load->logistic_company->country);
 
         $sheet->getStyle('I5:O8')->getFont()->setSize(14);
         $sheet->mergeCells('I5:O5');

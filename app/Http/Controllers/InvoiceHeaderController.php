@@ -163,6 +163,7 @@ class InvoiceHeaderController extends Controller
     
     public function masterInvoiceExcel($id)
     {
+        $load = Load::find($id);
         // Empresas de Logistica "Activa"
         $lc_active = LogisticCompany::where('active', '=', 'yes')->first();
         // Mi empresa
@@ -182,7 +183,7 @@ class InvoiceHeaderController extends Controller
         //dd($invoiceItemsAll);
         $invoiceItems = InvoiceHeader::groupEqualsMasterInvoice($invoiceItemsAll, $id);
         //dd($invoiceItems);
-        InvoiceHeader::excel_master($invoiceheaders, $lc_active, $company, $invoiceItems);
+        InvoiceHeader::excel_master($invoiceheaders, $lc_active, $company, $invoiceItems, $load);
         
     }
 

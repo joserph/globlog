@@ -192,15 +192,15 @@
             <td class="medium-letter text-left border-arriba">{{ $my_company->name }}</td>
         </tr>
         <tr>
-            <td class="medium-letter text-left border-arriba-abajo">{{ $logistic_company->name }}</td>
+            <td class="medium-letter text-left border-arriba-abajo">{{ $load->logistic_company->name }}</td>
             <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($my_company->address)  }}</td>
         </tr>
         <tr>
-            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($logistic_company->address) }}</td>
+            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($load->logistic_company->address) }}</td>
             <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($my_company->city)  }}, {{ strtoupper($my_company->state)  }}</td>
         </tr>
         <tr>
-            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($logistic_company->city) }} - {{ strtoupper($logistic_company->country) }}</td>
+            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($load->logistic_company->city) }} - {{ strtoupper($logistic_company->country) }}</td>
             <td class="medium-letter text-left" rowspan="2"></td>
         </tr>
         <tr>
@@ -215,14 +215,14 @@
             <td class="medium-letter text-left border-arriba">84-4098314</td>
         </tr>
         <tr>
-            <td class="medium-letter text-left border-arriba-abajo">{{ $logistic_company->name }}</td>
+            <td class="medium-letter text-left border-arriba-abajo">{{ $load->logistic_company->name }}</td>
             <td class="medium-letter text-left" rowspan="5"></td>
         </tr>
         <tr>
-            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($logistic_company->address) }}</td>
+            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($load->logistic_company->address) }}</td>
         </tr>
         <tr>
-            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($logistic_company->city) }} - {{ strtoupper($logistic_company->country) }}</td>
+            <td class="medium-letter text-left border-arriba-abajo">{{ strtoupper($load->logistic_company->city) }} - {{ strtoupper($logistic_company->country) }}</td>
         </tr>
         <tr>
             <td class="medium-letter text-left amarillo" rowspan="2"></td>

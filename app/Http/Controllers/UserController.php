@@ -156,10 +156,10 @@ class UserController extends Controller
             $user->where('email', '=', \Auth::user()->email)
                 ->update(['password' => bcrypt($request->password)]);
 
-            return redirect()->route('user.index')
+            return redirect()->route('user.show', \Auth::user()->id)
                 ->with('status_success', 'Contraseña actualizada con éxito');
         }else{
-            return redirect()->route('user.index')
+            return redirect()->route('user.show', \Auth::user()->id)
                 ->with('status_success', 'Credenciales Incorrectas');
         }
     }

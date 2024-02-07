@@ -20,7 +20,7 @@ class ItemForInvoiceComponent extends Component
 
     public function render()
     {
-        Gate::authorize('haveaccess', 'farms'); // cambiar
+        Gate::authorize('haveaccess', 'itemforinvoice'); // cambiar
 
         return view('livewire.item-for-invoice-component', [
             'itemsforinvoices' => ItemForInvoice::when($this->term, function($query, $term){

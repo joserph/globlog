@@ -199,10 +199,10 @@
             </tr>
             <tr class="tHeader">
                 <td class="small-letter">
-                    {{ strtoupper($lc_active->name) }} RUC: {{ $lc_active->ruc }} <br>
-                    {{ strtoupper($lc_active->address) }} <br>
-                    TLF: {{ $lc_active->phone }} <br>
-                    {{ strtoupper($lc_active->city) }} - {{ strtoupper($lc_active->country) }} 
+                    {{ strtoupper($load->logistic_company->name) }} RUC: {{ $load->logistic_company->ruc }} <br>
+                    {{ strtoupper($load->logistic_company->address) }} <br>
+                    TLF: {{ $load->logistic_company->phone }} <br>
+                    {{ strtoupper($load->logistic_company->city) }} - {{ strtoupper($load->logistic_company->country) }} 
                 </td>
                 <td class="small-letter">
                     {{ strtoupper($company->name) }} <br>

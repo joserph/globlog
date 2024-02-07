@@ -26,10 +26,10 @@ class ItemInInvoiceRequest extends FormRequest
         return [
             'description_id'=> 'required',
             'invoice_id'    => '',
-            'pieces'        => 'required',
-            'quantity'      => 'required',
-            'rate'          => 'required',
-            'amount'        => 'required',
+            'pieces'        => 'required|numeric',
+            'quantity'      => 'required|numeric',
+            'rate'          => 'required|numeric',
+            'amount'        => 'required|numeric',
         ];
     }
 }

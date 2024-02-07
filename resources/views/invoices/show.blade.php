@@ -114,7 +114,9 @@
                                  <td>{{ number_format($item->rate, 3, '.','') }}</td>
                                  <td>${{ number_format($item->amount, 3, '.','') }}</td>
                                  <td class="text-center" width="10px">
+                                    @can('haveaccess', 'itemsininvoices.edit')
                                     <button type="button" onclick="mifuncion2(this)" value="{{ $item->id }}" class="btn btn-sm btn-outline-warning pull-right" data-toggle="modal" data-target="#editItem{{ $item->id }}" data-toggle="tooltip" data-placement="top" title="Editar nuevas paletas"><i class="fas fa-edit"></i></button>
+                                    @endcan
                                  </td>
                                  <td class="text-center" width="10px">
                                     @can('haveaccess', 'itemsininvoices.destroy')

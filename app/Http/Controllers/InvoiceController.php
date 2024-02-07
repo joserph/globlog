@@ -126,6 +126,13 @@ class InvoiceController extends Controller
      */
     public function update(InvoiceRequest $request, $id)
     {
+        //dd($request->all());
+        if($request['load_type'] == 'flight')
+        {
+            $request['load_id'] = null;
+        }else{
+            $request['flight_id'] = null;
+        }
         $invoice = Invoice::find($id);
         $invoice->update($request->all());
 
