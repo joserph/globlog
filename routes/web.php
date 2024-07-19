@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\User;
 use App\Farm;
 use App\Coordination;
+use App\Http\Controllers\InvoiceController;
 use App\MasterInvoiceItem;
 use App\InvoiceHeader;
 use App\PermissionFolder\Models\Role;
@@ -209,3 +210,5 @@ Route::resource('/itemsininvoices', 'ItemInInvoiceController')->names('itemsinin
 Route::resource('/invoices', 'InvoiceController')->names('invoices');
 // PDF Invoice
 Route::get('invoice-pdf/{id}', 'InvoiceController@invoicePdf')->name('invoice.pdf');
+// Datatable invoices
+Route::get('dataTableInvoice', 'InvoiceController@dataTable')->name('dataTableInvoice');

@@ -12,6 +12,7 @@ use App\Load;
 use Illuminate\Http\Request;
 use App\Http\Requests\InvoiceRequest;
 use Barryvdh\DomPDF\Facade as PDF;
+use Yajra\DataTables\DataTables;
 
 class InvoiceController extends Controller
 {
@@ -22,9 +23,45 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::orderBy('num_invoice', 'DESC')->paginate(10);
+        // $invoices = Invoice::with('client')->orderBy('num_invoice', 'DESC')->paginate(10);
+        // dd($invoices);
+        return view('invoices.index');
+    }
 
-        return view('invoices.index', compact('invoices'));
+    public function dataTable()
+    {
+        return DataTables::of(Invoice::with('client')->orderBy('num_invoice', 'DESC'))
+            ->editColumn('date', function(Invoice $invoice){
+                return date('d-m-Y', strtotime($invoice->date));
+            })
+            ->editColumn('type', function(Invoice $invoice){
+                if($invoice->load_id)
+                {
+                    $type = '<h5><span class="badge badge-success">MARITIMO</span></h5>';
+                }else{
+                    $type = '<h5><span class="badge badge-warning">AEREO</span></h5>';
+                }
+                return $type;
+            })
+            ->editColumn('load_flight', function(Invoice $invoice){
+                $load_info = Load::select('bl')->find($invoice->load_id);
+                $flight_info = Flight::select('awb')->find($invoice->flight_id);
+                if($invoice->load_id)
+                {
+                    $load_flight = $load_info->bl;
+                }else{
+                    $load_flight = $flight_info->awb;
+                }
+                return $load_flight;
+            })
+            
+            ->editColumn('total_amount', function(Invoice $invoice){
+                return '$' . number_format($invoice->total_amount, 2, '.','');
+            })
+            ->addColumn('btn', 'invoices.partials.dataTable.btn')
+            // ->addColumn('edit', 'invoices.partials.dataTable.edit')
+            ->rawColumns(['btn', 'type'])
+            ->toJson();
     }
 
     /**

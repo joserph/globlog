@@ -138,7 +138,7 @@ class PalletItemController extends Controller
             $sheet->getPageSetup()->setFitToWidth(1);
             $sheet->getPageSetup()->setFitToHeight(0);
 
-            $sheet->setTitle($client['name']);
+            $sheet->setTitle(str_replace('/', '', $client['name']) );
             $styleArrayBorderThick = [
                 'borders' => [
                     'outline' => [

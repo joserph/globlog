@@ -1,7 +1,9 @@
 @extends('layouts.principal')
 
 @section('title') Facturas | Sistema de Carguera v1.1 @stop
-
+@section('css')
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
 <section class="content-header">
    <div class="container-fluid">
@@ -33,7 +35,7 @@
                   <div class="card-header">
                      <h3 class="card-title">Lista de Facturas</h3>
                      <div class="card-tools">
-                        {{ $invoices->links() }}
+                        {{-- {{ $invoices->links() }} --}}
                      </div>
                   </div>
    
@@ -41,19 +43,19 @@
    
                   <!-- /.card-header -->
                   <div class="card-body table-responsive p-0">
-                     <table class="table table-sm">
+                     <table id="invoice-table" class="table table-sm compact" style="width:100%">
                         <thead class="thead-dark">
                            <tr>
                               <th scope="col">Num Factura</th>
-                              <th scope="col">Cliente</th>
+                              <th scope="col" width="200px">Cliente</th>
                               <th scope="col">Fecha</th>
                               <th scope="col">Tipo Carga</th>
                               <th scope="col">BL/AWB</th>
                               <th scope="col">Valor</th>
-                              <th class="text-center" width="80px" colspan="3">@can('haveaccess', 'load.show')Ver @endcan @can('haveaccess', 'load.edit')Editar @endcan</th>
+                              <th width="80px" colspan="3">@can('haveaccess', 'load.show')Ver @endcan @can('haveaccess', 'load.edit')Editar @endcan</th>
                            </tr>
                         </thead>
-                        <tbody>
+                        {{-- <tbody>
                            @foreach ($invoices as $item)
                               <tr>
                                  <td>
@@ -94,16 +96,16 @@
                                        <a href="{{ route('invoices.edit', $item->id) }}" class="btn btn-outline-warning btn-sm"><i class="fas fa-edit"></i></a>
                                     @endcan
                                  </td>
-                                 {{-- <td width="45px" class="text-center">
+                                 <td width="45px" class="text-center">
                                     @can('haveaccess', 'invoices.destroy')
                                        {{ Form::open(['route' => ['invoices.destroy', $item->id], 'method' => 'DELETE']) }}
                                           {{ Form::button('<i class="fas fa-trash-alt"></i> ' . '', ['type' => 'submit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'title' => 'Eliminar Vuelo', 'class' => 'btn btn-sm btn-outline-danger', 'onclick' => 'return confirm("¿Seguro de eliminar el invoices?")']) }}
                                        {{ Form::close() }}
                                     @endcan
-                                 </td> --}}
+                                 </td>
                               </tr>
                            @endforeach
-                        </tbody>
+                        </tbody> --}}
                      </table>
                   </div>
                   <!-- /.card-body -->
@@ -114,4 +116,27 @@
       </div>
    </div>
 </section>
+@endsection
+@section('scripts')
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+   $(document).ready(function(){
+      $('#invoice-table').DataTable({
+         processing: true,
+         serverSider:true,
+         ajax: '{!! route('dataTableInvoice') !!}',
+         columns: [
+            {data: 'num_invoice'},
+            {data: 'client.name'},
+            {data: 'date'},
+            {data: 'type'},
+            {data: 'load_flight'},
+            {data: 'total_amount'},
+            {data: 'btn'},
+            // {data: 'edit'},
+         ],
+         order: [[0, 'desc']]
+      });
+   });
+</script>
 @endsection

@@ -21,7 +21,7 @@
         "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "^2.44",
         "phpoffice/phpspreadsheet": "^1.21",
-        "yajra/laravel-datatables-oracle": "^9.18"
+        "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
