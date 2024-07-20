@@ -46,11 +46,24 @@ class InvoiceController extends Controller
             ->editColumn('load_flight', function(Invoice $invoice){
                 $load_info = Load::select('bl')->find($invoice->load_id);
                 $flight_info = Flight::select('awb')->find($invoice->flight_id);
+                
                 if($invoice->load_id)
                 {
-                    $load_flight = $load_info->bl;
+                    if($load_info)
+                    {
+                        $load_flight = $load_info->bl;
+                    }else{
+                        $load_flight = '-';
+                    }
+                    
                 }else{
-                    $load_flight = $flight_info->awb;
+                    if($flight_info)
+                    {
+                        $load_flight = $flight_info->awb;
+                    }else{
+                        $load_flight = '-';
+                    }
+                    
                 }
                 return $load_flight;
             })
