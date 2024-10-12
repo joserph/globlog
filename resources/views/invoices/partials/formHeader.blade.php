@@ -52,6 +52,12 @@
                //console.log('finca');
             }
         });
+        $('.select-flight').select2({
+            theme: 'bootstrap4',
+        });
+        $('.select-load').select2({
+            theme: 'bootstrap4',
+        });
    });
  </script>
  @endsection
