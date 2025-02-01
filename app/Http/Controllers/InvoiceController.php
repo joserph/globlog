@@ -144,11 +144,15 @@ class InvoiceController extends Controller
         $clients = Client::orderBy('name', 'ASC')->pluck('name', 'id');
         $loads = Load::orderBy('bl', 'ASC')->pluck('bl', 'id');
         $flights = Flight::orderBy('awb', 'ASC')->pluck('awb', 'id');
+        // Factura anterior (si existe)
+        $prevInvoice = Invoice::where('id', '<', $id)->orderBy('id', 'desc')->first();
+        // Factura siguiente (si existe)
+        $nextInvoice = Invoice::where('id', '>', $id)->orderBy('id', 'asc')->first();
         // dd($items);
         return view('invoices.show', compact(
             'invoice', 'my_company', 'client', 
             'type_load', 'load', 'descriptions', 
-            'items', 'clients', 'loads', 'flights'));
+            'items', 'clients', 'loads', 'flights', 'prevInvoice', 'nextInvoice'));
     }
 
     /**

@@ -29,6 +29,17 @@
       <div class="invoice p-3 mb-3">
          <div class="row">
             <div class="col-12">
+               @if ($prevInvoice)
+                  <a href="{{ $prevInvoice->id }}" class="btn btn-outline-info float-left btn-sm"><i class="fas fa-arrow-left"></i> {{ $prevInvoice->num_invoice }} </a>
+               @endif
+               @if ($nextInvoice)
+               <a href="{{ $nextInvoice->id }}" class="btn btn-outline-info float-right btn-sm">{{ $nextInvoice->num_invoice }} <i class="fas fa-arrow-right"></i></a>
+               @endif
+            </div>
+         </div>
+         <hr>
+         <div class="row">
+            <div class="col-12">
                <h4>
                   <i class="fas fa-globe"></i> Factura
                   <small class="float-right">Fecha: {{ date('m-d-Y', strtotime($invoice->date)) }}</small>

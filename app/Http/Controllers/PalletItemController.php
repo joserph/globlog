@@ -98,9 +98,9 @@ class PalletItemController extends Controller
 
         // Empresa de logistica
         $logistic = LogisticCompany::find($load->id_logistic_company);
-
+        
         $company = Company::first();
-
+        // dd($company);
         $palletItem = PalletItem::where('id_load', '=', $codeLoad)->with('client')->with('farm')->orderBy('farms', 'ASC')->get();
         $pallets = Pallet::where('id_load', '=', $codeLoad)->get();
         //dd($load);
@@ -116,7 +116,7 @@ class PalletItemController extends Controller
             ->orderBy('farms.name', 'ASC')
             ->get();
 
-        //dd($palletItem);
+        // dd($palletItem);
         $spreadsheet = new Spreadsheet();
         $val = 0;
         
