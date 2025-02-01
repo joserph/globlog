@@ -52,7 +52,7 @@
                               <th scope="col">Tipo Carga</th>
                               <th scope="col">BL/AWB</th>
                               <th scope="col">Valor</th>
-                              <th width="80px" colspan="3">@can('haveaccess', 'load.show')Ver @endcan @can('haveaccess', 'load.edit')Editar @endcan</th>
+                              <th width="80px" colspan="3">@can('haveaccess', 'load.show')Ver @endcan @can('haveaccess', 'load.edit')Editar @endcan Descargar</th>
                            </tr>
                         </thead>
                         {{-- <tbody>
